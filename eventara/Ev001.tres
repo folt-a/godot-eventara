@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Eventara" load_steps=4 format=3 uid="uid://bcwq2tfn7ur0h"]
+
+[ext_resource type="Script" path="res://addons/godot-eventara/eventara_runtime/eventara.gd" id="1_41rvg"]
+[ext_resource type="Resource" uid="uid://bwy2tkborl73e" path="res://eventara/Ev001_sheet_0.tres" id="2_yvdpl"]
+[ext_resource type="Resource" uid="uid://dasdqwh0sqiap" path="res://eventara/Ev001_sheet_1.tres" id="3_rcrqo"]
+
+[resource]
+script = ExtResource("1_41rvg")
+id = &"Ev001"
+sheets = Array[Resource("res://addons/godot-eventara/eventara_runtime/eventara_sheet.gd")]([ExtResource("2_yvdpl"), ExtResource("3_rcrqo")])
+event_execute_parallel = 0

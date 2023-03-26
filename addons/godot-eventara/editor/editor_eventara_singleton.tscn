@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c07io1p87y45x"]
+
+[ext_resource type="Script" path="res://addons/godot-eventara/editor/editor_eventara_singleton.gd" id="1_hrxag"]
+
+[node name="editor_eventara_singleton" type="Node"]
+script = ExtResource("1_hrxag")

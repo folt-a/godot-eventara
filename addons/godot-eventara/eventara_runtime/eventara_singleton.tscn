@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://d5delwp5glix"]
+
+[ext_resource type="Script" path="res://addons/godot-eventara/eventara_runtime/eventara_singleton.gd" id="1_7pnvx"]
+
+[node name="Evs" type="Node"]
+script = ExtResource("1_7pnvx")

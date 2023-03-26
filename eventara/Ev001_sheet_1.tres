@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="EventaraSheet" load_steps=3 format=3 uid="uid://dasdqwh0sqiap"]
+
+[ext_resource type="Script" path="res://addons/godot-eventara/eventara_runtime/eventara_sheet.gd" id="1_rh36k"]
+[ext_resource type="Script" path="res://eventara/Ev001_sheet_1.gd" id="2_6hg4w"]
+
+[resource]
+script = ExtResource("1_rh36k")
+sheet_name = &"sheet_1"
+sheet_script = ExtResource("2_6hg4w")
+sheet_execute_type = 2
