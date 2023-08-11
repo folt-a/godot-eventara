@@ -40,7 +40,7 @@ signal sheets_loaded
 ## イベント変数
 var event_variables:Dictionary = {}
 ## 実行中のシート番号(同時処理なしの場合)
-var current_sheet_index:int = 0
+var current_sheet_index:int = -1
 
 var event_id:StringName
 
@@ -163,9 +163,17 @@ func execute_sheet_name_sync_if_condition(sheet_name:String):
 
 
 ## イベントを実行します。
-func execute(index:int = 0, is_force:bool = false):
+## 引数[index]指定なしならシート順に判定していき、最初のtrueのものを実行します。
+func execute(index:int = -1, is_force:bool = false):
 	assert(event != null)
-	await _execute_sheet(sheets[index],is_force)
+	if index == -1:
+		for sheet_node in sheets:
+			if sheet_node.is_executable():
+				await _execute_sheet(sheet_node,is_force)
+				return
+	else:
+		assert(sheets.size() > index)
+		await _execute_sheet(sheets[index],is_force)
 
 ## 現在のイベントを実行します。
 func execute_current(is_force:bool = false):

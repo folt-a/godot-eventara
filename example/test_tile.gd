@@ -17,7 +17,8 @@ func _input(event):
 	if event is InputEventKey:
 		if event.keycode == KEY_SPACE:
 			is_lock = true
-			await eventara.execute(index)
+			var ret = await eventara.execute(index)
+			print(ret)
 			is_lock = false
 			if index == 0:
 				index = 1

@@ -4,9 +4,9 @@ extends EventaraSheetNode
 
 ## 実行条件判定関数
 func _is_executable() -> bool:
-	return false
+	return true
 
 ##
-func _execute() -> void:
+func _execute() -> String:
 	print("TEST1")
-	pass
+	return  "TEST1"

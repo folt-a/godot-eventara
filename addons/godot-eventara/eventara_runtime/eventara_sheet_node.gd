@@ -114,12 +114,13 @@ func execute(is_force:bool = false):
 		return
 	event_sheet_started.emit(sheet_index)
 	is_running = true
-	await _execute()
+	var ret = await _execute()
 	await _tree.process_frame
 	is_running = false
 	event_sheet_finished.emit(sheet_index)
+	return ret
 
-func is_executable():
+func is_executable() -> bool:
 	return _is_executable()
 
 #-----------------------------------------------------------
@@ -129,9 +130,9 @@ func _execute():
 	# override
 	pass
 
-func _is_executable():
+func _is_executable() -> bool:
 	# override
-	pass
+	return true
 
 #-----------------------------------------------------------
 # 汎用イベントシート methods
@@ -158,3 +159,6 @@ func wait_frame(wait_frames:int = 1):
 	timer.start()
 	await timer.timeout
 	timer.queue_free()
+
+func create(callable:Callable):
+	return EventaraCancel.new(callable)

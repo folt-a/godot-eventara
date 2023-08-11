@@ -1,6 +1,6 @@
 extends EventaraSheetNode
 @onready var ev:EventaraNode = get_parent()
-@onready var n:Node = ev.get_parent() ## 型指定するとよい
+@onready var n:%CLASSNAME% = ev.get_parent()
 
 ## 実行条件判定関数
 func _is_executable() -> bool:

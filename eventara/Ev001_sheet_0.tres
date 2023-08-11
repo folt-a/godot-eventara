@@ -7,4 +7,4 @@
 script = ExtResource("1_uwew4")
 sheet_name = &"sheet_0"
 sheet_script = ExtResource("2_b2n0m")
-sheet_execute_type = 2
+sheet_execute_type = 0

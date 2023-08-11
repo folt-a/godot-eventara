@@ -58,6 +58,7 @@ var sheet_uids:Array[int] = []
 var current_script:GDScript
 
 var template_code:String
+var template_code_replaced:String
 
 var _is_dirty:bool = false
 
@@ -74,6 +75,7 @@ var script_editor_parent:Node
 @onready var ev_edit_s:EventaraEditorSingleton = get_tree().get_meta("__eventara_singleton") if get_tree().has_meta("__eventara_singleton") else null
 @onready var interface:EditorInterface
 @onready var selected_node:EventaraNode
+@onready var parent_node:Node
 
 @onready var script_edit_margin_container:MarginContainer = %ScriptEditMarginContainer
 @onready var commands_code_edit:CodeEdit = %CommandsCodeEdit
@@ -206,6 +208,10 @@ func reload():
 	sheet_uids.clear()
 	msg_rich_text_label.text = ""
 	selected_node = ev_edit_s.selected_node
+	parent_node = selected_node.get_parent()
+	var classname:String = get_gori_oshi_class_name()
+	print("classname",classname)
+	template_code_replaced = template_code.replace("%CLASSNAME%", classname)
 	load_event()
 
 func _on_close_requested():
@@ -360,7 +366,7 @@ func _on_add_button_pressed():
 	if ProjectSettings.has_setting("eventara/defaults/sheet_execute_type"):
 		sheet.sheet_execute_type = ProjectSettings.get_setting("eventara/defaults/sheet_execute_type")
 	var new_script = GDScript.new()
-	new_script.source_code = template_code
+	new_script.source_code = template_code_replaced
 	sheet.sheet_script = new_script
 	working_sheets.append(sheet)
 	sheet_uids.append(-1)
@@ -416,6 +422,43 @@ func _on_save_resources_path_line_edit_text_changed(new_text:String):
 #
 # ---------------------------------------------------------
 #
+
+func get_gori_oshi_class_name() -> String:
+	var script:Script = parent_node.get_script()
+	if script == null or !script.has_source_code():
+		return parent_node.get_class()
+	var source_code:String = script.source_code
+
+	var class_name_pattern: String = "^class_name\\s+(\\w+)$"
+	var regex = RegEx.new()
+	regex.compile(class_name_pattern)
+
+	var lines = source_code.split("\n")
+	for line in lines:
+		var result = regex.search(line)
+		if result:
+			return result.get_string(1)
+	return parent_node.get_class()
+
+func _load_line(line:String) -> String:
+#	コメントチェック
+	var regex_comment = RegEx.new()
+	regex_comment.compile("\\s*#.*")
+	var result_comment = regex_comment.search(line)
+	if result_comment:
+		return ""
+
+#	@icon("res://icon.svg")
+#	iconsチェック
+	var regex_icon = RegEx.new()
+	regex_icon.compile("\\s*@icon\\(.*")
+	var result_icon = regex_icon.search(line)
+	if result_icon:
+		var icon_pos := line.find("@icon(")
+		var icon_path = line.substr(icon_pos + 7).trim_suffix(" ").trim_prefix(" ").trim_suffix(")").trim_suffix("\"")
+		return icon_path
+
+	return ""
 
 func load_event():
 	if selected_node == null or selected_node.event == null:
