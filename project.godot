@@ -40,7 +40,7 @@ window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot-nesink/plugin.cfg", "res://addons/godot-eventara/plugin.cfg")
+enabled=PackedStringArray("res://addons/godot-eventara/plugin.cfg", "res://addons/godot-nesink/plugin.cfg")
 
 [eventara]
 

@@ -210,7 +210,7 @@ func reload():
 	selected_node = ev_edit_s.selected_node
 	parent_node = selected_node.get_parent()
 	var classname:String = get_gori_oshi_class_name()
-	print("classname",classname)
+#	print("classname",classname)
 	template_code_replaced = template_code.replace("%CLASSNAME%", classname)
 	load_event()
 
